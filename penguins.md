@@ -44,92 +44,20 @@ The Lesson: They will be jagged/blocky. This visually proves that Random Forests
 
 Comparison: If you have time, ask the Agent to "Do the same with Logistic Regression." The line will be perfectly straight. This shows the difference between linear and non-linear models instantly.
 
-## Code
+## Too easy?
 
-```python
-import pandas as pd
-import seaborn as sns
-import matplotlib.pyplot as plt
-from sklearn.model_selection import train_test_split
-from sklearn.ensemble import RandomForestClassifier
-from sklearn.metrics import accuracy_score, confusion_matrix, classification_report
+The Palmer Penguins species are linearly separable.
 
-# 1. Load Data
-url = "https://raw.githubusercontent.com/mwaskom/seaborn-data/master/penguins.csv"
-df = pd.read_csv(url)
+- Biology: These three species are very distinct. Gentoos are huge (mass). Chinstraps have very different bills.
+- The Geometry: Imagine the data points in space. You can literally draw a straight flat sheet (a plane) between the Adélies and the Gentoos.
+- The Lesson: If Logistic Regression gets 100%, you don't need AI or Random Forests. Occam's Razor wins.
 
-# 2. Clean Data (Drop NaNs)
-df = df.dropna()
+How to "Break" the Model (And prove RF is better)
 
-# 3. Prepare X (Features) and y (Target)
-# We drop 'species' (target) and 'island'/'sex' (categorical) for simplicity, 
-# or we can encoding them. For a simple demo, let's stick to numeric measurements.
-X = df[['bill_length_mm', 'bill_depth_mm', 'flipper_length_mm', 'body_mass_g']]
-y = df['species']
+To show the value of Random Forest, you need to make the problem harder.
+The "Bill Only" Challenge: Flipper Length and Body Mass are dead giveaways. Let's see if the AI can identify them just by looking at their beaks.
 
-# 4. Split Data
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
-
-# 5. Train Model
-rf = RandomForestClassifier(n_estimators=100, random_state=42)
-rf.fit(X_train, y_train)
-
-# 6. Evaluate
-y_pred = rf.predict(X_test)
-acc = accuracy_score(y_test, y_pred)
-print(f"Model Accuracy: {acc:.2f}")
-print("\nClassification Report:")
-print(classification_report(y_test, y_pred))
-
-# 7. Confusion Matrix
-plt.figure(figsize=(6,4))
-sns.heatmap(confusion_matrix(y_test, y_pred), annot=True, fmt='d', cmap='Blues',
-            xticklabels=rf.classes_, yticklabels=rf.classes_)
-plt.title('Confusion Matrix')
-plt.ylabel('Actual')
-plt.xlabel('Predicted')
-plt.show()
-
-# 8. Feature Importance
-plt.figure(figsize=(8,4))
-importances = pd.Series(rf.feature_importances_, index=X.columns)
-importances.sort_values().plot(kind='barh', color='teal')
-plt.title('What matters for Penguin ID?')
-plt.show()
-
-import numpy as np
-import matplotlib.pyplot as plt
-from matplotlib.colors import ListedColormap
-
-# 1. Select just 2 features for visualization
-X_vis = df[['bill_length_mm', 'flipper_length_mm']].values
-y_vis = df['species'].astype('category').cat.codes # Ensure y is numeric
-
-# 2. Retrain model on just these 2 features
-rf_vis = RandomForestClassifier(n_estimators=100, random_state=42)
-rf_vis.fit(X_vis, y_vis)
-
-# 3. Define bounds for the meshgrid
-x_min, x_max = X_vis[:, 0].min() - 1, X_vis[:, 0].max() + 1
-y_min, y_max = X_vis[:, 1].min() - 1, X_vis[:, 1].max() + 1
-xx, yy = np.meshgrid(np.arange(x_min, x_max, 0.1),
-                     np.arange(y_min, y_max, 0.1))
-
-# 4. Predict for the whole grid
-Z = rf_vis.predict(np.c_[xx.ravel(), yy.ravel()])
-Z = Z.reshape(xx.shape)
-
-# 5. Plot
-plt.figure(figsize=(10, 6))
-# Create custom cmap: matches Seaborn/Matplotlib default colors often used
-cmap_light = ListedColormap(['#FFAAAA', '#AAFFAA', '#AAAAFF'])
-cmap_bold = ListedColormap(['#FF0000', '#00FF00', '#0000FF'])
-
-plt.contourf(xx, yy, Z, cmap=cmap_light, alpha=0.3)
-plt.scatter(X_vis[:, 0], X_vis[:, 1], c=y_vis, cmap=cmap_bold, edgecolor='k', s=20)
-
-plt.xlabel('Bill Length (mm)')
-plt.ylabel('Flipper Length (mm)')
-plt.title('Random Forest Decision Boundaries (Penguins)')
-plt.show()
+The Prompt Adjustment:
+```
+Retrain the models using ONLY bill_length_mm and bill_depth_mm. Compare Random Forest vs Logistic Regression.
 ```
