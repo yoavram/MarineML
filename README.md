@@ -11,11 +11,11 @@ All coding will be done in **Google Colab**. No local installation is required.
 
 | Session | Topic | Key Concepts | Notebook / Data |
 | :--- | :--- | :--- | :--- |
-| **1** | **Concepts** | Machine Learning, Classification, Decision Tree, Random Forest | [Slides (PDF)](./slides.pdf) |
-| **2** | **Penguin species (Python)** | `scikit-learn`, `pandas`, Gemini Agent | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/yoavram/MarineML/blob/main/notebooks/penguins_python.ipynb) |
-| **3** | **Coral bleaching (R)** | `randomForest`, `tidyverse` in Colab | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/yoavram/MarineML/blob/main/notebooks/coral_bleaching_R.ipynb) |
-| **4** | **Fish market (exercise)** |  | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/yoavram/MarineML/blob/main/notebooks/fish_market.ipynb) |
-| **5** | **Photo-identification (Python)** | MegaDetector, BioCLIP, Automated Counting | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/yoavram/MarineML/blob/main/notebooks/computervision.ipynb) |
+| **1** | **Concepts** | Machine Learning, Classification, Decision Tree, Random Forest | 
+| **2** | [**Penguin species (Python)**](penguins.md) | `scikit-learn`, `pandas`, Gemini Agent | 
+| **3** | **Coral bleaching (R)** | `randomForest`, `tidyverse` in Colab | 
+| **4** | **Fish market (exercise)** | 
+| **5** | **Photo-identification (Python)** | MegaDetector, BioCLIP, Automated Counting 
 
 ## 🛠 Prerequisites
 1. A Google Account (for Colab).
