@@ -69,6 +69,29 @@ Prompt:
 The model has high accuracy but poor recall for 'High' bleaching because of class imbalance. Retrain the Random Forest model, but this time downsample the majority class to match the minority class size (or use classwt) to balance the learning. Compare the new Confusion Matrix to the old one. Did Recall for 'High' improve?
 ```
 
+Result: The Recall for 'High' bleaching events has slightly improved from 32.8% (169 / (169 + 346)) to 33.8% (174 / (174 + 341)).
+
+The Fix: Threshold Tuning
+In standard classification, the model predicts "High" only if it is >50% sure. But for a marine biologist, missing a bleaching event is costly. You might want to flag a reef as "High Risk" even if the model is only 20% sure.
+Prompt:
+```
+The class weighting didn't help enough. Let's try Threshold Moving.
+
+Use the model to predict probabilities instead of classes (type='prob').
+
+Create a histogram of the predicted probabilities for the 'High' class.
+
+Create a new prediction: If the probability of 'High' is greater than 0.25 (instead of the default 0.5), classify it as 'High'.
+
+Print the new Confusion Matrix. Did Recall improve?
+```
+
+What to expect: Recall for 'High' will jump up significantly (maybe to 70-80%).
+False Positives will also jump (you will alarm for some healthy reefs).
+
+The Discussion: Ask the class: "As a park ranger, would you rather miss a dying reef (False Negative) or accidentally check a healthy reef (False Positive)?"
+
+
 ## Source code
 
 ```R
