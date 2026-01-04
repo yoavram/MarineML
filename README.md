@@ -22,5 +22,5 @@ All coding will be done with [Gemini](https://gemini.google.com/) inside Google 
 | **1** |  Introduction: Machine Learning, Classification, Decision Tree, Random Forest, Colab, Gemini | 
 | **2** | [**Penguin species with Python**](penguins.md) | 
 | **3** | [**Coral bleaching with R**](coral_bleaching.md) | 
-| **4** | **Fish market (exercise)** | 
-| **5** | [**Species photo-identification (Python)**](computervision.ipynb) | 
+| **4** | [**Fish survey exercise**](fish.md) | 
+| **5** | [**Species photo-identification with Python**](computervision.ipynb) | 
